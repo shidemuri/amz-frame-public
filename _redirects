@@ -1,0 +1,13 @@
+/tracks/B0DZTSF3YS   /meta/tracks-B0DZTSF3YS.html  200
+/albums/B0HNZJF2M2   /meta/albums-B0HNZJF2M2.html  200
+/artists/B000RSH8DM  /meta/artists-B000RSH8DM.html  200
+/playlists/B00JFIL7BO /meta/playlists-B00JFIL7BO.html 200
+/tracks/*     /meta/tracks-B0DZTSF3YS.html  200
+/albums/*     /meta/albums-B0HNZJF2M2.html  200
+/artists/*    /meta/artists-B000RSH8DM.html 200
+/playlists/*  /meta/playlists-B00JFIL7BO.html 200
+/podcasts/*   /meta/tracks-B0DZTSF3YS.html  200
+/songs/*      /meta/tracks-B0DZTSF3YS.html  200
+/videos/*     /meta/tracks-B0DZTSF3YS.html  200
+/dp/*         /meta/tracks-B0DZTSF3YS.html  200
+/embed/*      /poc.html                     200
